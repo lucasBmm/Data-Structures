@@ -114,6 +114,21 @@ class LinkedList<T> {
         return value;
     }
 
+    /**
+     * Remove the last node.
+     */
+    pop(): void {
+        let n = this.head;
+
+        while(n?.next?.next) {
+            n = n.next;
+        }
+
+        if (n) n.next = null;
+
+        this.size--;
+    }
+
     toString(): String {
         const list: T[] = [];
         let n = this.head;

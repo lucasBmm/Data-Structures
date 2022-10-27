@@ -1,6 +1,6 @@
 import LinkedList  from './LinkedList';
 
-describe("Linked List tests", () => {
+describe("Linked List", () => {
     it("Should create a linkedList", () => {
         const list = new LinkedList<Number>;
     
@@ -68,5 +68,24 @@ describe("Linked List tests", () => {
         expect(list.find(5)).toBe(5);
         expect(list.find(9)).toBe(1);
         expect(() => list.find(100)).toThrowError();
-    })
+    });
+
+    it("Should delete the last element", () => {
+        const list = new LinkedList<Number>;
+
+        for (let i = 0; i < 10; i++) {
+            list.append(i);
+        }
+
+        list.pop();
+        
+        expect(list.size).toBe(9);
+        expect(list.toString()).toBe("0,1,2,3,4,5,6,7,8");
+
+        list.pop();
+        list.pop();
+
+        expect(list.size).toBe(7);
+        expect(list.toString()).toBe("0,1,2,3,4,5,6");
+    });
 })
