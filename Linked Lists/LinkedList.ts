@@ -118,23 +118,70 @@ class LinkedList<T> {
      * Remove the last node.
      */
     pop(): void {
+        if (!this.head) return;
         let n = this.head;
+        let previusNode = n;
 
-        while(n?.next?.next) {
+        while(n?.next) {
+            previusNode = n;
             n = n.next;
         }
 
-        if (n) n.next = null;
+        if (previusNode) 
+            previusNode.next = null;
 
         this.size--;
     }
 
-    toString(): String {
-        const list: T[] = [];
+     /**
+     * Remove the first node.
+     */
+    shift(): void {
+        if (!this.head) return;
+
+        let n = this.head;
+        
+        if (n?.next)
+            this.head = n?.next;
+        else 
+            this.head = null;
+
+        this.size--;
+    }
+
+    /**
+     * Reverse the intire list.
+     */
+     reverse(): void {
+        if (!this.head) return;
+
+        let previusNode: LinkedListNode<T> | null = null;
+        let nextNode: LinkedListNode<T>    | null = null;
+
+        while (this.head) {
+            nextNode = this.head.next;
+            this.head.next = previusNode;
+            previusNode = this.head;
+            this.head = nextNode;
+        }
+
+        this.head = previusNode;
+    }
+
+    /**
+     * Clear the intire list.
+     */
+    clear(): void {
+        this.head = null;
+        this.size = 0;
+    }
+
+    toString(): string {
+        const list: string[] = [];
         let n = this.head;
 
         while(n) {
-            list.push(n.value);
+            list.push(JSON.stringify(n.value));
             n = n.next;
         }
 

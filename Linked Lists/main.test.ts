@@ -1,6 +1,11 @@
 import LinkedList  from './LinkedList';
 
+
 describe("Linked List", () => {
+    const list = new LinkedList<Number>;
+
+    beforeEach(() => list.clear());
+
     it("Should create a linkedList", () => {
         const list = new LinkedList<Number>;
     
@@ -9,8 +14,6 @@ describe("Linked List", () => {
     });
     
     it("Should add new nodes to the beginning of the Linked List", () => {
-        const list = new LinkedList<Number>;
-    
         list.add(1);
         list.add(2);
     
@@ -19,8 +22,6 @@ describe("Linked List", () => {
     });
     
     it("Should add new nodes at the end of the Linked List", () => {
-        const list = new LinkedList<Number>;
-    
         list.append(1);
         list.append(2);
     
@@ -29,8 +30,6 @@ describe("Linked List", () => {
     });
     
     it("Should add at determined place", () => {
-        const list = new LinkedList<Number>;
-    
         list.append(1);
         list.append(2);
         list.append(4);
@@ -43,8 +42,6 @@ describe("Linked List", () => {
     });
 
     it("Should correct add to beggining or end of the linked list", () => {
-        const list = new LinkedList<Number>;
-
         for (let i = 0; i < 8; i++) {
             list.append(i+1);
         }
@@ -58,8 +55,6 @@ describe("Linked List", () => {
     });
 
     it("Should get an element of the linked list at determined index", () => {
-        const list = new LinkedList<Number>;
-
         for (let i = 10; i > 0; i--) {
             list.append(i);
         }
@@ -71,7 +66,7 @@ describe("Linked List", () => {
     });
 
     it("Should delete the last element", () => {
-        const list = new LinkedList<Number>;
+        list.pop();
 
         for (let i = 0; i < 10; i++) {
             list.append(i);
@@ -88,4 +83,43 @@ describe("Linked List", () => {
         expect(list.size).toBe(7);
         expect(list.toString()).toBe("0,1,2,3,4,5,6");
     });
+
+    it("Should delete the first element", () => {
+        list.append(1);
+        list.append(2);
+        list.append(3);
+
+        list.shift();
+        
+        expect(list.size).toBe(2);
+        expect(list.toString()).toBe("2,3");
+
+        list.shift();
+        list.shift();
+        list.shift();
+
+        expect(list.size).toBe(0);
+        expect(list.toString()).toBe("");
+
+        
+    });
+
+    it("Should reverse the entire linked list", () => {
+        list.append(1);
+        list.append(2);
+        list.append(3);
+
+        list.reverse();
+
+        expect(list.toString()).toBe("3,2,1");
+    });
+
+    it("Should create a linked list of objects", () => {
+        let objList = new LinkedList<object>();
+
+        objList.append({key: "hey", value: "hola"});
+
+        expect(objList.size).toBe(1);
+        expect(JSON.parse(objList.toString())).toStrictEqual({key: 'hey', value: 'hola'});
+    })
 })
