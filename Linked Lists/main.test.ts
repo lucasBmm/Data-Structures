@@ -10,6 +10,7 @@ describe("Linked List", () => {
         const list = new LinkedList<Number>;
     
         expect(list.head).toBeNull();
+        expect(list.tail).toBeNull();
         expect(list.size).toBe(0);
     });
     
@@ -18,6 +19,7 @@ describe("Linked List", () => {
         list.add(2);
     
         expect(list.size).toBe(2);
+        expect(list.tail?.value).toBe(1);
         expect(list.toString()).toBe("2,1");
     });
     
@@ -26,6 +28,7 @@ describe("Linked List", () => {
         list.append(2);
     
         expect(list.size).toBe(2);
+        expect(list.tail?.value).toBe(2);
         expect(list.toString()).toBe("1,2");
     });
     
@@ -38,6 +41,7 @@ describe("Linked List", () => {
     
         expect(() => list.insertAt(10, 1)).toThrowError();
         expect(list.size).toBe(4);
+        expect(list.tail?.value).toBe(4);
         expect(list.toString()).toBe("1,2,3,4");
     });
 
@@ -51,6 +55,7 @@ describe("Linked List", () => {
         list.insertAt(4, 11);
 
         expect(list.size).toBe(11);
+        expect(list.tail?.value).toBe(9);
         expect(list.toString()).toBe("0,1,2,3,11,4,5,6,7,8,9");
     });
 
@@ -75,12 +80,14 @@ describe("Linked List", () => {
         list.pop();
         
         expect(list.size).toBe(9);
+        expect(list.tail?.value).toBe(8);
         expect(list.toString()).toBe("0,1,2,3,4,5,6,7,8");
 
         list.pop();
-        list.pop();
 
+        expect(list.pop()).toBe(7);
         expect(list.size).toBe(7);
+        expect(list.tail?.value).toBe(6);
         expect(list.toString()).toBe("0,1,2,3,4,5,6");
     });
 
@@ -90,8 +97,9 @@ describe("Linked List", () => {
         list.append(3);
 
         list.shift();
-        
+
         expect(list.size).toBe(2);
+        expect(list.tail?.value).toBe(3);
         expect(list.toString()).toBe("2,3");
 
         list.shift();
@@ -99,9 +107,8 @@ describe("Linked List", () => {
         list.shift();
 
         expect(list.size).toBe(0);
+        expect(list.tail).toBeNull();
         expect(list.toString()).toBe("");
-
-        
     });
 
     it("Should reverse the entire linked list", () => {
@@ -112,6 +119,7 @@ describe("Linked List", () => {
         list.reverse();
 
         expect(list.toString()).toBe("3,2,1");
+        expect(list.tail?.value).toBe(1);
     });
 
     it("Should create a linked list of objects", () => {
