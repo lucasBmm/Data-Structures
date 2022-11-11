@@ -10,10 +10,12 @@ class LinkedListNode<T> {
 
 class LinkedList<T> {
     head: LinkedListNode<T> | null;
+    tail: LinkedListNode<T> | null;
     size: number;
 
     constructor() {
         this.head = null;
+        this.tail = null;
         this.size = 0;
     }
 
@@ -27,11 +29,17 @@ class LinkedList<T> {
 
         if (!this.head) {
             this.head = newNode;
+            this.tail = newNode;
             this.size++;
             return;
         }
 
+        if (!this.tail) {
+            this.tail = newNode;
+        }
+
         [this.head, newNode.next] = [newNode, this.head];
+        
         this.size++;
     }
 
@@ -45,17 +53,16 @@ class LinkedList<T> {
 
         if (!this.head) {
             this.head = newNode;
+            this.tail = newNode;
             this.size++;
             return;
         }
 
-        let n = this.head;
+        if (this.tail)
+            this.tail.next = newNode;
+            
+        this.tail = newNode;
 
-        while(n.next) {
-            n = n.next;
-        }
-
-        n.next = newNode;
         this.size++;
     }
 
@@ -117,20 +124,29 @@ class LinkedList<T> {
     /**
      * Remove the last node.
      */
-    pop(): void {
-        if (!this.head) return;
+    pop(): T | void {
+        if (!this.head) {
+            return;
+        }
+
         let n = this.head;
         let previusNode = n;
+        let removedValue: T | undefined;
 
         while(n?.next) {
             previusNode = n;
             n = n.next;
         }
 
+        removedValue = previusNode?.next?.value;
+
         if (previusNode) 
             previusNode.next = null;
+            this.tail = previusNode;
 
         this.size--;
+
+        return removedValue;
     }
 
      /**
@@ -145,18 +161,19 @@ class LinkedList<T> {
             this.head = n?.next;
         else 
             this.head = null;
-
+            
+        if (!this.head) this.tail = null;    
+        
         this.size--;
     }
 
-    /**
-     * Reverse the intire list.
-     */
-     reverse(): void {
+    reverse(): void {
         if (!this.head) return;
 
         let previusNode: LinkedListNode<T> | null = null;
         let nextNode: LinkedListNode<T>    | null = null;
+
+        this.tail = this.head;
 
         while (this.head) {
             nextNode = this.head.next;
@@ -171,8 +188,9 @@ class LinkedList<T> {
     /**
      * Clear the intire list.
      */
-    clear(): void {
+     clear(): void {
         this.head = null;
+        this.tail = null;
         this.size = 0;
     }
 
