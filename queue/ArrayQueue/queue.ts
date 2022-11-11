@@ -1,8 +1,8 @@
 class Queue<T> {
     private array = new Array<T>();
 
-    queue(value: T): void {
-        this.array.unshift(value);
+    enqueue(value: T): void {
+        this.array.push(value);
     }
 
     dequeue(): T | void {
