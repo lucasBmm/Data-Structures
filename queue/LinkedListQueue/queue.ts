@@ -1,4 +1,4 @@
-import LinkedList from "../../Linked List/linkedList";
+import LinkedList from "../../LinkedLists/LinkedList";
 
 class Queue<T> {
     private linkedList = new LinkedList<T>();
