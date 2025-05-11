@@ -148,19 +148,30 @@ class LinkedList<T> implements Iterable<T> {
 	}
 
 	/**
-	 * Remove the first node.
+	 * Remove the first node and return it
 	 */
-	shift(): void {
-		if (!this.head) return;
+	shift(): T | undefined {
+		if (!this.head) return undefined;
 
 		let n = this.head;
+		let removedNode: LinkedListNode<T> | undefined;
 
-		if (n?.next) this.head = n?.next;
-		else this.head = undefined;
+		if (n?.next) {
+			removedNode = n;
+			this.head = n?.next;
+		} else {
+			removedNode = this.head;
+			this.head = undefined;
+		}
 
-		if (!this.head) this.tail = undefined;
+		if (!this.head) {
+			removedNode = this.tail;
+			this.tail = undefined;
+		}
 
 		this.size--;
+
+		return removedNode?.value;
 	}
 
 	reverse(): void {

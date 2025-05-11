@@ -1,25 +1,51 @@
-class Queue<T> {
-    private array = new Array<T>();
+import Queue from "../queue.interface";
 
-    enqueue(value: T): void {
-        this.array.push(value);
-    }
+export default class ArrayQueue<T> implements Queue<T> {
+	private array = new Array<T>();
 
-    dequeue(): T | void {
-        return this.array.shift();
-    }
+	/**
+	 * Add value at the end of the queue
+	 * @param value
+	 */
+	enqueue(value: T): void {
+		this.array.push(value);
+	}
 
-    firstElement(): T | void {
-        return this.array[0];
-    }
+	/**
+	 * Remove the first element of the queue and return it
+	 * @param value
+	 */
+	dequeue(): T | undefined {
+		return this.array.shift();
+	}
 
-    empty(): void {
-        this.array = new Array<T>();
-    }
+	/**
+	 * Return the first element without removing it
+	 * @param value
+	 */
+	peek(): T | undefined {
+		return this.array[0];
+	}
 
-    getSize(): number {
-        return this.array.length;
-    }
+	/**
+	 * Return if the queue is empty
+	 * @returns {boolean}
+	 */
+	isEmpty(): boolean {
+		return this.array.length === 0;
+	}
+
+	/**
+	 * Clear the entire queue
+	 */
+	clear(): void {
+		this.array = [];
+	}
+
+	/**
+	 * Return the size of the queue
+	 */
+	get size(): number {
+		return this.array.length;
+	}
 }
-
-export default Queue;
